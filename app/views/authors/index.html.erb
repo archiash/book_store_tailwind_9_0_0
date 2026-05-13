@@ -1,0 +1,11 @@
+<h1 class="text-slate-600 text-3xl font-semibold">Authors</h1>
+
+<%= link_to "New author", new_author_path %>
+
+<div id="authors"
+  <% @authors.each do |author| %>
+    <div>
+      <%= link_to author.name, author %>
+    </div>
+  <% end %>
+</div>

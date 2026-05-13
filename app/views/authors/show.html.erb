@@ -1,0 +1,12 @@
+<h1 class="text-3xl font-semibold"><%= @author.name %></h1>
+
+<h2 class="text-xl">Books</h2>
+<% @author.books.each do |book| %>
+  <div>
+    <%= link_to book.name, book %>
+  </div>
+<% end %>
+
+<%= link_to "Back", authors_path %>
+<%= button_to "Delete", @author, method: :delete, data: { turbo_confirm: "Remove this author also remove #{@author.books.count} #{"book".pluralize(@author.books.count)} of this author, Are you sure?" } %>
+
