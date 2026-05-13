@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dwayne:
+  book: skyfall7
+  email: dwayne_johnson@therock.muscle
+
+gongz:
+  book: skyfall7
+  email: gongz_coolman@cmu.ac.th
