@@ -3,7 +3,9 @@ class Book < ApplicationRecord
 
   has_many :subscribers, dependent: :destroy
   has_rich_text :description
-  belongs_to :author, optional: true
+
+  has_many :authorships
+  has_many :authors, through: :authorships
 
   validates :name, presence: true
   validates :price, presence: true

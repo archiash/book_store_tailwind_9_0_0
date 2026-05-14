@@ -1,5 +1,5 @@
 <%= form_with model: book do |form| %>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 my-4">
     <% if form.object.errors.any? %>
       <p class="error">
         <%= form.object.errors.full_message.first %>
@@ -16,13 +16,18 @@
       <%= form.number_field :price, step: 1 %>
     </div>
 
-    <div>
-      <%= form.label :author %>
-      <%= form.collection_select :author_id, Author.all, :id, :name, { include_blank: "None" } %>
+    <div class="flex fles-row gap-2">
+      <%= form.label :authors %>
+
+      <div class="flex flex-col gap-2">
+        <%= form.collection_check_boxes :author_ids, Author.all, :id, :name do |author| %>
+          <%= author.label { author.check_box + " " + author.text } %>
+        <% end %>
+      </div>
     </div>
 
     <div>
-      <%= form.label :inventory_count, style: "display: block" %>
+      <%= form.label :inventory_count %>
       <%= form.number_field :inventory_count %>
     </div>
 

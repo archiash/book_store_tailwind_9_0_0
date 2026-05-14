@@ -26,10 +26,15 @@
   <body>
     <div class="notice"><%= flash[:notice] %></div>
     <div class="alert"><%= flash[:alert] %></div>
-    <nav>
+    <nav class="p-0 py-5">
+      <%= link_to "Book Store", root_path, class: "text-blue-500 flex-row flex-1 w-full text-2xl font-bold" %>
+      <div> 
+      <div class="flex-row flex-1 gap-4 flex w-auto text-md font-semibold">
       <%= link_to "Book", books_path %>
       <%= link_to "Author", authors_path %>
-      <%= button_to "Log out", session_path, method: :delete if authenticated? %>
+      <%= link_to "Log in", new_session_path unless authenticated? %>
+      <%= link_to "Log out", session_path, method: :delete if authenticated? %>
+      </div>
     </nav>
 
     <main>

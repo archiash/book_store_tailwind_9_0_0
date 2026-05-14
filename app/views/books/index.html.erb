@@ -1,6 +1,5 @@
 <h1 class="text-3xl text-slate-600 font-semibold">Books</h1>
 
-<%= link_to "Login", new_session_path unless authenticated? %>
 <%= link_to "New book", new_book_path if authenticated? %>
 
 <div id="books">
@@ -8,8 +7,10 @@
     <div>
       <%= link_to book.name, book %>
       ,price <%= book.price %>
-      <% unless book.author.nil? %>
-        ,by <%= book.author.name %>
+      <% unless book.authors.nil? %>
+        ,by <% book.authors.each do |author|%>
+        <%= author.name %>
+      <% end %>
       <% end %>
     </div>
   <% end %>

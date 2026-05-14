@@ -3,20 +3,26 @@
 <section class="book">
   <section class="book-info">
     <% cache @book do %>
-      <h1 class="text-blue-800"><%= @book.name %></h1>
-      <h3><%= "Price: #{@book.price}" %></h3>
+      <h1 class="text-slate-600 text-3xl font-semibold"><%= @book.name %></h1>
+      <h3 class="font-bold text-slate-800"><%= "Price: #{@book.price}" %></h3>
     <% end %>
 
-    <% unless @book.author.nil? %>
-      <h3>Author: <%= link_to @book.author.name, @book.author %></h3>
+    <% unless @book.authors.nil? %>
+      <h3 class="font-bold text-slate-800">Author:
+        <% @book.authors.each_with_index do |author, index| %>
+          <%= link_to author.name, author %>
+          <%=", " if index < @book.authors.count - 1 %>  
+       <% end %>
+      </h3>
     <% end %>
 
+    <div class="font-bold text-slate-800">Description</div>
     <%= @book.description %>
-    <%= render "inventory", book: @book %>
+    <div class="font-bold text-slate-800"><%= render "inventory", book: @book %></div>
 
     <% if authenticated? %>
       <%= link_to "Edit", edit_book_path(@book) %>
-      <%= button_to "Delete", @book, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+      <%= button_to "Delete", @book, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "cursor-pointer text-red-500" %>
     <% end %>
   </section>
 </section>

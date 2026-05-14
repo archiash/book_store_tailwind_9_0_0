@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@source "../views/**/*.html.erb";
+@source "../helpers/**/*.rb";
+@source "../javascript/**/*.js";
+
 @layer base {
 
 	body {
