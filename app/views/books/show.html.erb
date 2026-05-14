@@ -1,7 +1,7 @@
 <p><%= link_to "Back", books_path %></p>
 
-<section class="book">
-  <section class="book-info">
+<section class="book w-full">
+  <section class="book-info w-full">
     <% cache @book do %>
       <h1 class="text-slate-600 text-3xl font-semibold"><%= @book.name %></h1>
       <h3 class="font-bold text-slate-800"><%= "Price: #{@book.price}" %></h3>
@@ -18,7 +18,22 @@
 
     <div class="font-bold text-slate-800">Description</div>
     <%= @book.description %>
-    <div class="font-bold text-slate-800"><%= render "inventory", book: @book %></div>
+
+    <div class="font-bold text-slate-800">
+      <%= render "inventory", book: @book %>
+    </div>
+
+    <div>
+      <div>Reviews</div>
+      <% @book.reviews.each do |review| %>
+        <div class="bg-slate-400 w-full m-2 p-2">
+          <div class="flex flex-col">
+            <%= review.user %>
+            <%= review.description %>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
     <% if authenticated? %>
       <%= link_to "Edit", edit_book_path(@book) %>

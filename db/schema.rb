@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_13_091527) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_14_035407) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -72,6 +72,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_091527) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "reviewable_id"
+    t.string "reviewable_type"
+    t.datetime "reviewed_at"
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -99,6 +110,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_091527) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "reviews", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "subscribers", "books"
 end
