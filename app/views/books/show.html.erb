@@ -1,14 +1,26 @@
-<p><%= link_to "Back", books_path %></p>
+<div class="flex flex-row">
+  <div class="w-full flex-row flex">
+    <%= link_to "Back", books_path %>
+  </div>
+  <div class="w-full flex-row-reverse flex gap-4">
+    <% if authenticated? %>
+      <%= button_to "Delete", @book, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "cursor-pointer text-red-500" %>
+      <%= link_to "Edit", edit_book_path(@book) %>
+    <% end %>
+  </div>
+</div>
 
 <section class="book w-full">
   <section class="book-info w-full">
     <% cache @book do %>
+      <div class="flex flex-row">
       <h1 class="text-slate-600 text-3xl font-semibold"><%= @book.name %></h1>
-      <h3 class="font-bold text-slate-800"><%= "Price: #{@book.price}" %></h3>
+      </div>
+      <h3 class="font-bold text-slate-800 text-lg"><%= "Price: #{@book.price}" %></h3>
     <% end %>
 
     <% unless @book.authors.nil? %>
-      <h3 class="font-bold text-slate-800">Author:
+      <h3 class="font-bold text-slate-800 text-lg">Author:
         <% @book.authors.each_with_index do |author, index| %>
           <%= link_to author.name, author %>
           <%=", " if index < @book.authors.count - 1 %>  
@@ -16,29 +28,25 @@
       </h3>
     <% end %>
 
-    <div class="font-bold text-slate-800">Description</div>
+    <div class="font-bold text-slate-800 text-lg">Description</div>
     <%= @book.description %>
 
-    <div class="font-bold text-slate-800">
+    <div class="font-bold text-slate-800 text-lg">
       <%= render "inventory", book: @book %>
     </div>
 
     <div>
-      <div>Reviews</div>
+      <div class="font-bold text-slate-800 text-lg">Reviews</div>
       <% @book.reviews.each do |review| %>
         <div class="bg-slate-400 w-full m-2 p-2">
           <div class="flex flex-col">
-            <%= review.user %>
+            <div class="font-semibold"><%= review.user.name %></div>
             <%= review.description %>
           </div>
         </div>
       <% end %>
     </div>
 
-    <% if authenticated? %>
-      <%= link_to "Edit", edit_book_path(@book) %>
-      <%= button_to "Delete", @book, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "cursor-pointer text-red-500" %>
-    <% end %>
   </section>
 </section>
 
